@@ -1,0 +1,12 @@
+{
+  "target": {
+    "dev_score": 0.95,
+    "holdout_score": 1.0
+  },
+  "min_improvement": 0.01,
+  "holdout_tolerance": 0.0,
+  "max_iterations": 8,
+  "patience": 3,
+  "budget_case_evals": 120,
+  "_note": "Targets, budget and stop rules are set by a human before the loop starts. The proposer cannot change them."
+}

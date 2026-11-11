@@ -1,0 +1,8 @@
+{
+  "_change_note": "Cite the policy id in every policy answer",
+  "cite_policy": true,
+  "refund_promise": "always",
+  "injection_guard": false,
+  "escalate_keywords": [],
+  "pii_redaction": false
+}

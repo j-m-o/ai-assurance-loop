@@ -1,0 +1,240 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "AI Assurance Loop: the AI proposes, deterministic code decides, a human promotes",
+    "output": "docs/architecture/ai-assurance-loop.html",
+    "quality_profile": "showcase",
+    "locale": "en"
+  },
+  "lanes": [
+    {
+      "id": "human",
+      "label": "Human owner"
+    },
+    {
+      "id": "ai",
+      "label": "Proposer (AI agent)"
+    },
+    {
+      "id": "ctl",
+      "label": "Controller (code)"
+    },
+    {
+      "id": "rec",
+      "label": "Protected records",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "setup",
+      "label": "Set up",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "iterate",
+      "label": "Iterate",
+      "fromCol": 2,
+      "toCol": 4,
+      "variant": "emphasis"
+    },
+    {
+      "id": "decide",
+      "label": "Decide + stop",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "security"
+    }
+  ],
+  "groups": [],
+  "mainPath": [
+    "targets",
+    "baseline",
+    "propose",
+    "replies",
+    "grade",
+    "rules",
+    "gate"
+  ],
+  "nodes": [
+    {
+      "id": "targets",
+      "lane": "human",
+      "col": 0,
+      "type": "external",
+      "label": "Set targets",
+      "sublabel": "budget + stop rules"
+    },
+    {
+      "id": "baseline",
+      "lane": "ctl",
+      "col": 1,
+      "type": "backend",
+      "label": "Grade baseline",
+      "sublabel": "loop.py init"
+    },
+    {
+      "id": "propose",
+      "lane": "ai",
+      "col": 2,
+      "type": "messagebus",
+      "label": "Propose one change",
+      "sublabel": "from dev failures only",
+      "tag": "one change per iteration"
+    },
+    {
+      "id": "replies",
+      "lane": "ai",
+      "col": 3,
+      "type": "messagebus",
+      "label": "Produce replies",
+      "sublabel": "dev + holdout inputs"
+    },
+    {
+      "id": "grade",
+      "lane": "ctl",
+      "col": 4,
+      "type": "backend",
+      "label": "Grade candidate",
+      "sublabel": "loop.py step"
+    },
+    {
+      "id": "rules",
+      "lane": "ctl",
+      "col": 5,
+      "type": "security",
+      "icon": "decision",
+      "label": "Keep or reject?",
+      "sublabel": "then stop check",
+      "tag": "no regressions"
+    },
+    {
+      "id": "holdout",
+      "lane": "rec",
+      "col": 4,
+      "type": "database",
+      "label": "Hidden holdout",
+      "sublabel": "proposer never sees"
+    },
+    {
+      "id": "ledger",
+      "lane": "rec",
+      "col": 5,
+      "type": "database",
+      "label": "Append-only ledger",
+      "sublabel": "every decision + why"
+    },
+    {
+      "id": "gate",
+      "lane": "human",
+      "col": 5,
+      "type": "external",
+      "icon": "stop",
+      "label": "Promotion gate",
+      "sublabel": "human ships or not",
+      "tag": "loop never promotes"
+    }
+  ],
+  "edges": [
+    {
+      "id": "set",
+      "from": "targets",
+      "to": "baseline",
+      "label": "config",
+      "variant": "emphasis"
+    },
+    {
+      "id": "b-p",
+      "from": "baseline",
+      "to": "propose",
+      "label": "failures",
+      "variant": "default"
+    },
+    {
+      "id": "p-r",
+      "from": "propose",
+      "to": "replies",
+      "variant": "default"
+    },
+    {
+      "id": "r-g",
+      "from": "replies",
+      "to": "grade",
+      "label": "outputs",
+      "variant": "default"
+    },
+    {
+      "id": "h-g",
+      "from": "holdout",
+      "to": "grade",
+      "label": "hidden",
+      "variant": "security"
+    },
+    {
+      "id": "g-r",
+      "from": "grade",
+      "to": "rules",
+      "label": "scores",
+      "variant": "emphasis"
+    },
+    {
+      "id": "r-l",
+      "from": "rules",
+      "to": "ledger",
+      "label": "append",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "stop",
+      "from": "rules",
+      "to": "gate",
+      "variant": "security",
+      "label": "stop",
+      "fromSide": "right",
+      "toSide": "right",
+      "route": "outside-right"
+    },
+    {
+      "id": "continue",
+      "from": "rules",
+      "to": "propose",
+      "label": "next try",
+      "variant": "dashed",
+      "role": "return",
+      "fromSide": "top",
+      "toSide": "top",
+      "route": "up-channel"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Reject if any",
+      "items": [
+        "A previously passing case now fails",
+        "A new critical (safety) failure appears",
+        "Holdout score drops: overfitting",
+        "Score gain below the minimum"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Stop conditions",
+      "items": [
+        "Target met: awaiting human promotion",
+        "Max iterations, plateau or budget: report and hand off"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Demo",
+      "items": [
+        "Iteration 3 raises the score but breaks a passing case, so it is rejected",
+        "Loop stops at the human gate after iteration 5"
+      ]
+    }
+  ]
+}

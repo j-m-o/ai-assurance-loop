@@ -1,0 +1,14 @@
+{
+  "_change_note": "Refuse instruction-override attempts; escalate enterprise and annual-plan refunds",
+  "cite_policy": true,
+  "refund_promise": "never",
+  "injection_guard": true,
+  "escalate_keywords": [
+    "chargeback",
+    "lawyer",
+    "manager",
+    "enterprise",
+    "annual plan"
+  ],
+  "pii_redaction": false
+}

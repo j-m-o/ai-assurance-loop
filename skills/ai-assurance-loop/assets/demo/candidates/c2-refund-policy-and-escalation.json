@@ -1,0 +1,12 @@
+{
+  "_change_note": "Follow the 30-day refund policy; escalate legal and manager requests",
+  "cite_policy": true,
+  "refund_promise": "never",
+  "injection_guard": false,
+  "escalate_keywords": [
+    "chargeback",
+    "lawyer",
+    "manager"
+  ],
+  "pii_redaction": false
+}

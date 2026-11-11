@@ -1,0 +1,14 @@
+{
+  "_change_note": "Redact card numbers and emails before echoing customer text",
+  "cite_policy": true,
+  "refund_promise": "never",
+  "injection_guard": true,
+  "escalate_keywords": [
+    "chargeback",
+    "lawyer",
+    "manager",
+    "enterprise",
+    "annual plan"
+  ],
+  "pii_redaction": true
+}

@@ -1,0 +1,13 @@
+{
+  "_change_note": "Escalate any message that mentions a dollar amount",
+  "cite_policy": true,
+  "refund_promise": "never",
+  "injection_guard": false,
+  "escalate_keywords": [
+    "chargeback",
+    "lawyer",
+    "manager",
+    "$"
+  ],
+  "pii_redaction": false
+}
