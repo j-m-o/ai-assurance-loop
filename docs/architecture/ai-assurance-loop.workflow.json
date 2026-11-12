@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "AI Assurance Loop: the AI proposes, deterministic code decides, a human promotes",
+    "title": "AI Assurance Loop",
     "output": "docs/architecture/ai-assurance-loop.html",
     "quality_profile": "showcase",
     "locale": "en"
