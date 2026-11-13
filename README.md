@@ -68,7 +68,7 @@ The controller grades replies; it never calls your system or the network. Run yo
 | Option | Use |
 | --- | --- |
 | `agents/ai-assurance-loop.md` | Copy to `.claude/agents/` to run the proposer as an agent |
-| `dist/ai-assurance-loop.zip` | Upload as a skill (Claude, Agensi or any SKILL.md agent) |
+| `dist/ai-assurance-loop.zip` | Upload as a skill ([Claude](https://claude.ai), [Agensi](https://agensi.io) or any SKILL.md agent) |
 | `skills/ai-assurance-loop/` | Copy into `~/.claude/skills/` |
 
 ## Part of a connected portfolio
